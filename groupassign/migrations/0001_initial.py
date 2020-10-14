@@ -9,7 +9,7 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('auth', '0012_alter_user_first_name_max_length'),
+        ('auth', '0011_update_proxy_permissions'),
         ('authentication', '0017_remove_fleetup_permission'),
     ]
 
