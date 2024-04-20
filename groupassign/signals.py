@@ -15,11 +15,15 @@ def state_change(sender, instance, raw, using, update_fields, **kwargs):
         if instance.pk:
             old_instance = UserProfile.objects.get(pk=instance.pk)
             if old_instance.state != instance.state:
-                if old_instance.state.name == "Member":
-                    logger.debug("Uni State changed from member: Checking for Groups")
-                    group_lists = StateGroupBinding.objects.get(state=instance.state).groups.all()
-                    for grp in group_lists:
-                        if grp not in instance.user.groups.all():
+                group_lists = StateGroupBinding.objects.get(state=instance.state).groups.all()
+                for grp in group_lists:
+                    if grp not in instance.user.groups.all():
+                        if grp.name == "Alumnus":
+                            if old_instance.state.name == "Member":
+                                logger.debug("Uni State changed from member: Checking for Groups")
+                                instance.user.groups.add(grp)
+                        else:
+                            logger.debug("Uni State changed from other: Checking for Groups")
                             instance.user.groups.add(grp)
     except ObjectDoesNotExist as e:
         pass # no config for this state so skip.

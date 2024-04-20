@@ -12,7 +12,7 @@ install_requires = [
 
 setup(
     name='allianceauth-group-assigner',
-    version='0.0.1+euni0.1',
+    version='0.0.1+euni0.2',
     packages=find_packages(),
     include_package_data=True,
     license='GNU General Public License v3 (GPLv3)',
